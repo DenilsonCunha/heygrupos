@@ -1,10 +1,10 @@
 import React from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 
-export default function SignIn() {
+export default function ChatRoom() {
   return (
     <View style={styles.container}>
-      <Text>Tela login</Text>
+      <Text>Tela ChatRoom</Text>
     </View>
   );
 }
@@ -16,4 +16,3 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   }
 })
-
