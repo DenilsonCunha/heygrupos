@@ -1,18 +1,12 @@
-import React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import React from 'react';
+
+import {NavigationContainer} from '@react-navigation/native';
+import Routes from './src/routes';
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Heygrupos</Text>
-    </View>
+    <NavigationContainer>
+      <Routes />
+    </NavigationContainer>
   );
 }
-
-const styles = StyleSheet.create({
-  container:{
-    flex:1,
-    justifyContent: 'center',
-    alignItems: 'center'
-  }
-})
