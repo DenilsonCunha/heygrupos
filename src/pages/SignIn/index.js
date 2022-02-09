@@ -40,7 +40,18 @@ export default function SignIn() {
       })
 
     }else{
-      console.log("LOGAR USUARIO")
+      //logar usuario.
+
+      auth()
+      .signInWithEmailAndPassword(email, password)
+      .then(()=>{
+        navigation.goBack();
+      })
+      .catch((error)=>{
+        if (error.code === 'auth/invalid-email') {
+          console.log('Email inválido!');
+        }
+      })
     }
   }
 
@@ -74,6 +85,7 @@ export default function SignIn() {
         onChangeText={ (text) => setPassword(text) }
         placeholder="Digite sua senha"
         placeholderTextColor="#99999B"
+        secureTextEntry={true}
      />
 
      <TouchableOpacity 
