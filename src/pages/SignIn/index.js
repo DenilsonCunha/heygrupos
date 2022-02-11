@@ -25,7 +25,7 @@ export default function SignIn() {
           displayName: name
         })
         .then(()=> {
-          navigation.goBack();
+          navigation.goBack();  
         })
 
       })
