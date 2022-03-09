@@ -8,8 +8,39 @@ import {
          TouchableWithoutFeedback 
 } from 'react-native';
 
+import firebase from '@react-native-firebase/firestore';
+import auth from '@react-native-firebase/auth';
+
 function ModalNewRoom({ setVisible }){
     const [roomName, setRoomName] = useState('');
+
+    const user = auth().currentUser.toJSON();
+
+    function handleButtonCreate(){
+      if(roomName === '') return;
+
+      createRoom();
+    }
+    //criar nova sala no firestore (banco do firebase)
+    function createRoom(){
+      firebase()
+      .collection('MESSAGE_THREADS')
+      .add({
+          name: roomName,
+          owner: user.uid,
+          lastMessage:{
+              text: `Grupo ${roomName} criado. Bem Vindo(a)!`,
+              createdAt: firestore.FieldValue.serverTimestamp,
+          }
+      })
+      .then((docRef)=>{
+        docRef.collection('MESSAGES').add({
+            text: `Gupos ${roomName} criado. Bem Vindo(a)!`,
+            createdAt: firestore.FieldValue.serverTimestamp,
+            system: true,
+        })
+      })
+    }
 
     return(
       <View style={styles.container}>
@@ -26,7 +57,7 @@ function ModalNewRoom({ setVisible }){
             style={styles.input}
           />
 
-          <TouchableOpacity style={styles.buttonCreate}>
+          <TouchableOpacity style={styles.buttonCreate} onPress={handleButtonCreate}>
               <Text style={styles.buttonText}>Criar sala</Text>
           </TouchableOpacity>
         </View>
