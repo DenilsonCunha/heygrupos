@@ -8,7 +8,7 @@ import {
          TouchableWithoutFeedback 
 } from 'react-native';
 
-import firebase from '@react-native-firebase/firestore';
+import firestore from '@react-native-firebase/firestore';
 import auth from '@react-native-firebase/auth';
 
 function ModalNewRoom({ setVisible }){
@@ -23,22 +23,29 @@ function ModalNewRoom({ setVisible }){
     }
     //criar nova sala no firestore (banco do firebase)
     function createRoom(){
-      firebase()
+      firestore()
       .collection('MESSAGE_THREADS')
       .add({
           name: roomName,
           owner: user.uid,
           lastMessage:{
               text: `Grupo ${roomName} criado. Bem Vindo(a)!`,
-              createdAt: firestore.FieldValue.serverTimestamp,
+              createdAt: firestore.FieldValue.serverTimestamp(),
           }
       })
       .then((docRef)=>{
         docRef.collection('MESSAGES').add({
             text: `Gupos ${roomName} criado. Bem Vindo(a)!`,
-            createdAt: firestore.FieldValue.serverTimestamp,
+            createdAt: firestore.FieldValue.serverTimestamp(),
             system: true,
         })
+        .then(()=>{
+          setVisible();
+        })
+
+      })
+      .catch((err)=>{
+        console.log(err);
       })
     }
 
