@@ -5,11 +5,13 @@ import {
     StyleSheet,
      SafeAreaView,
       TouchableOpacity,
-       FlatList,
-         Modal
+         Modal,
+          ActivityIndicator
 } from 'react-native';
 
 import auth from '@react-native-firebase/auth';
+import firestore from '@react-native-firebase/firestore';
+
 import { useNavigation, useIsFocused } from '@react-navigation/native';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
@@ -24,7 +26,8 @@ export default function ChatRoom() {
    const [user, setUser] = useState(null);
    const [modalVisible, setModalVisible] = useState('false');
 
-
+   const [threads, setThreads] = useState([]);
+   const [loading, setLoading] = useState(true);
    useEffect(()=>{
       const hasUser = auth().currentUser ? auth().currentUser.toJSON() : null;
       console.log(hasUser);
@@ -34,7 +37,40 @@ export default function ChatRoom() {
 
    }, [IsFocused]);
 
+   useEffect(()=>{
+     let isActive = true;
 
+     function getChats(){
+         firestore()
+         .collection('MESSAGE_THREADS')
+         .orderBy('lastMessage.createdAt', 'desc')
+         .limit(10)
+         .get()
+         .then((snapshot)=>{
+           const threads = snapshot.docs.map( documentsSnapshot => {
+             return {
+               _id: documentsSnapshot.id,
+               name: '',
+               lastMessage: { text: '' },
+               ...documentsSnapshot.data()
+             }
+           })
+          
+           if(isActive){
+            setThreads(threads);
+            setLoading(false); 
+           }
+           
+         })
+     }
+
+     getChats();
+
+     return () => {
+       isActive = false;
+     }
+
+   }, [IsFocused]);
 
 
    function handleSignOut(){
@@ -47,6 +83,12 @@ export default function ChatRoom() {
      .catch(()=>{
        console.log("NAO POSSUI USUARIO")
      })
+   }
+
+   if(loading){
+     return(
+       <ActivityIndicator size="large" color="#FFF" />
+     )
    }
 
   return (
