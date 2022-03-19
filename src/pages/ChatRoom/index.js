@@ -7,7 +7,8 @@ import {
       TouchableOpacity,
          Modal,
           ActivityIndicator,
-           FlatList
+           FlatList,
+            Alert
 } from 'react-native';
 
 import auth from '@react-native-firebase/auth';
@@ -93,6 +94,36 @@ export default function ChatRoom() {
      })
    }
 
+   function deleteRoom(ownerId, idRoom){
+    //ferificar se o cara que está tentando deletar o grupo, não é dono da sala
+    if( ownerId !== user?.uid) return;
+
+    Alert.alert(
+      "Atenção!",
+      "Você tem certeza que deseja deletar esse grupo?",
+      [
+        {
+          text: "Cancelar",
+          onPress: () => {},
+          style: "Cancel"
+        },
+        {
+          text: "Deletar",
+          onPress: () => handleDeleteRoom(idRoom)
+        }
+      ]
+    )
+   }
+
+ async  function handleDeleteRoom(idRoom){
+     await firestore()
+     .collection('MESSAGE_THREADS')
+     .doc(idRoom)
+     .delete();
+
+     setUpdateScreen(!updateScreen);
+   }
+
    if(loading){
      return(
        <ActivityIndicator size="large" color="#FFF" />
@@ -120,7 +151,7 @@ export default function ChatRoom() {
         keyExtractor={ item => item._id}
         showsHorizontalScrollIndicator={false}
         renderItem={ ({ item }) => (
-         <ChatList data={item} />
+         <ChatList data={item} deleteRoom={ () => deleteRoom(item.owner, item._id) } />
         )}
       />
 
