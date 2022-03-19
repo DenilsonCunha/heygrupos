@@ -19,7 +19,26 @@ function ModalNewRoom({ setVisible, setUpdateScreen }){
     function handleButtonCreate(){
       if(roomName === '') return;
 
-      createRoom();
+
+      //Limite de grupos por usuario!
+      firestore().collection('MESSAGE_THREADS')
+      .get()
+      .then((snapshot)=> {
+        let myThreads = 0;
+
+        snapshot.docs.map( docItem => {
+          if(docItem.data().owner === user.uid){
+            myThreads += 1;
+          }
+        })
+
+       if(myThreads >= 5){
+         alert('Você atingiu o limite de grupos por usuário.');
+       }else{
+        createRoom();
+       }
+
+      })
     }
     //criar nova sala no firestore (banco do firebase)
     function createRoom(){
