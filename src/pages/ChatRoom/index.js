@@ -30,6 +30,11 @@ export default function ChatRoom() {
 
    const [threads, setThreads] = useState([]);
    const [loading, setLoading] = useState(true);
+   const [updateScreen, setUpdateScreen] = useState(false);
+
+
+
+
    useEffect(()=>{
       const hasUser = auth().currentUser ? auth().currentUser.toJSON() : null;
       console.log(hasUser);
@@ -73,7 +78,7 @@ export default function ChatRoom() {
        isActive = false;
      }
 
-   }, [IsFocused]);
+   }, [IsFocused, updateScreen]);
 
 
    function handleSignOut(){
@@ -122,7 +127,10 @@ export default function ChatRoom() {
      <FabButton setVisible={ () => setModalVisible(true) } userStatus={user}/>
 
      <Modal visible={modalVisible} animationType="fade" transparent={true}>
-      <ModalNewRoom setVisible={ () => setModalVisible(false) } />
+      <ModalNewRoom
+       setVisible={ () => setModalVisible(false) } 
+       setUpdateScreen={ () => setUpdateScreen(!updateScreen) }
+       />
      </Modal>
 
    </SafeAreaView>
