@@ -44,10 +44,12 @@ const styles = StyleSheet.create({
     marginVertical: 14,
   },
   input:{
+    color: '#000',
     backgroundColor: '#EBEBEB',
     marginLeft: 10,
     height: 50,
-    width: '80%'
+    width: '80%',
+   
   },
   buttonSearch:{
     backgroundColor: '#2E54D4',

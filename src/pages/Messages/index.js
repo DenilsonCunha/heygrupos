@@ -150,7 +150,7 @@ const styles = StyleSheet.create({
   mainContainerInput:{
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#FFF',
+    backgroundColor: '#808080',
     flex: 1,
     borderRadius: 25,
     marginRight: 10

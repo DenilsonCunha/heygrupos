@@ -139,9 +139,10 @@ export default function ChatRoom() {
           <MaterialIcons name="arrow-back" size={28} color="#FFF"/>
          </TouchableOpacity>
        )}
-        <Text style={styles.title}>Gupos</Text>
+        <Text style={styles.title}>Grupos</Text>
        </View>
-       <TouchableOpacity>
+
+       <TouchableOpacity onPress={ () => navigation.navigate("Search")}>
          <MaterialIcons name="search" size={28} color="#FFF"/>
        </TouchableOpacity>
      </View>
