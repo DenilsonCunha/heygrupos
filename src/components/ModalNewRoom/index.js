@@ -117,6 +117,7 @@ title:{
 input:{
  borderRadius: 4,
  height: 45,
+ color: '#000',
  backgroundColor: 'rgba(34, 34, 34, 0.4)',
  marginVertical: 15,
  fontSize: 16,
