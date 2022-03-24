@@ -18,6 +18,7 @@ export default function Search() {
       <View style={styles.containerInput}>
         <TextInput
           placeholder="Digite o nome do Grupo..."
+          placeholderTextColor="#808080" 
           value={input}
           onChangeText={ (text) => setInput(text) }
           style={styles.input}

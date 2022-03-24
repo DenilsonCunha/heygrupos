@@ -114,7 +114,8 @@ export default function Messages({ route }) {
 
           <View style={styles.mainContainerInput}>
             <TextInput 
-             placeholder="MENSAGEM"
+             placeholder="MENSAGEM..."
+             placeholderTextColor="#808080"
              style={styles.textInput}
              value={input}
              onChangeText={ (text) => setInput(text) }
@@ -150,7 +151,7 @@ const styles = StyleSheet.create({
   mainContainerInput:{
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#808080',
+    backgroundColor: '#d3d3d3',
     flex: 1,
     borderRadius: 25,
     marginRight: 10

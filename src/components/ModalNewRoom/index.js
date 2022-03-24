@@ -76,7 +76,7 @@ function ModalNewRoom({ setVisible, setUpdateScreen }){
           </TouchableWithoutFeedback>
 
         <View style={styles.modalContent}>
-          <Text style={styles.title}>Criar um novo Grupo</Text>
+          <Text style={styles.title}>Criar novo Grupo</Text>
           <TextInput
             value={roomName}
             onChangeText={ (text) => setRoomName(text) }
@@ -104,10 +104,11 @@ modal:{
 },
 modalContent:{
     flex: 1,
-    backgroundColor: '#000',
+    backgroundColor: '#fff',
     padding: 15,
 },
 title:{
+    color: '#000',
     marginTop: 14,
     textAlign: 'center',
     fontWeight: 'bold',
